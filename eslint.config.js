@@ -1,7 +1,7 @@
 import js from '@eslint/js';
-import pluginQuery from '@tanstack/eslint-plugin-query';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
+import perfectionist from 'eslint-plugin-perfectionist';
 import prettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
@@ -33,7 +33,7 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      '@tanstack/query': pluginQuery,
+      perfectionist,
     },
     settings: {
       // for eslint-plugin-react to auto detect react version
@@ -55,7 +55,36 @@ export default tseslint.config(
       },
     },
     rules: {
-      '@tanstack/query/exhaustive-deps': 'error',
+      'perfectionist/sort-imports': 'error',
+      'perfectionist/sort-enums': [
+        'error',
+        {
+          type: 'alphabetical',
+          order: 'asc',
+          ignoreCase: true,
+          specialCharacters: 'keep',
+          partitionByComment: false,
+          partitionByNewLine: false,
+          // newlinesBetween: 'ignore',
+          sortByValue: false,
+          forceNumericSort: false,
+        },
+      ],
+      'perfectionist/sort-interfaces': [
+        'error',
+        {
+          type: 'alphabetical',
+          order: 'asc',
+          ignoreCase: true,
+          specialCharacters: 'keep',
+          ignorePattern: [],
+          partitionByComment: false,
+          partitionByNewLine: false,
+          newlinesBetween: 'ignore',
+          groups: [],
+          customGroups: [],
+        },
+      ],
       'prettier/prettier': [
         'error',
         { endOfLine: 'auto' },

@@ -1,12 +1,20 @@
 import { FC } from 'react';
 
 interface InputProps {
-  text?: string;
+  aext?: string;
+  name: string;
 }
 
-const Input: FC<InputProps> = ({ text }) => (
+export enum HEnum {
+  App = 'app',
+  Name = 'name',
+}
+
+const Input: FC<InputProps> = ({ aext, name }) => (
   <section>
-    <button type="button">jj {text}</button>
+    <button type="button">
+      jj {aext} {name}
+    </button>
     <label htmlFor="inputField">ddd</label>
     <input type="text" id="inputField" />
     <img src="" alt="" />
