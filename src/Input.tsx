@@ -1,8 +1,8 @@
 import { FC } from 'react';
 
 interface InputProps {
-  aext?: string;
   name: string;
+  aext?: string;
 }
 
 export enum HEnum {

@@ -1,4 +1,4 @@
-import js from '@eslint/js';
+import { default as js, default as pluginJs } from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import perfectionist from 'eslint-plugin-perfectionist';
@@ -6,10 +6,22 @@ import prettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import tseslint from 'typescript-eslint';
+import typescriptSortKeys from 'eslint-plugin-typescript-sort-keys';
+import tseslint, { configs as tsConfigs } from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist'] },
+  { ignores: ['dist', 'node_modules'] },
+  pluginJs.configs.recommended,
+  {
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+        ecmaVersion: 'latest',
+        sourceType: 'module',
+        tsconfigRootDir: import.meta.dirname,
+      },
+    },
+  },
   {
     // specify the formats on which to apply the rules below
     files: ['**/*.{ts,tsx}'],
@@ -27,12 +39,14 @@ export default tseslint.config(
       jsxA11y.flatConfigs.recommended,
       // prettier
       prettier,
+      ...tsConfigs.strictTypeChecked,
     ],
 
     // specify used plugins
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      'typescript-sort-keys': typescriptSortKeys,
       perfectionist,
     },
     settings: {
@@ -47,13 +61,13 @@ export default tseslint.config(
         },
       },
     },
-    languageOptions: {
-      parserOptions: {
-        ecmaFeatures: {
-          jsx: true,
-        },
-      },
-    },
+    // languageOptions: {
+    //   parserOptions: {
+    //     ecmaFeatures: {
+    //       jsx: true,
+    //     },
+    //   },
+    // },
     rules: {
       'perfectionist/sort-imports': 'error',
       'perfectionist/sort-enums': [
@@ -70,21 +84,6 @@ export default tseslint.config(
           forceNumericSort: false,
         },
       ],
-      'perfectionist/sort-interfaces': [
-        'error',
-        {
-          type: 'alphabetical',
-          order: 'asc',
-          ignoreCase: true,
-          specialCharacters: 'keep',
-          ignorePattern: [],
-          partitionByComment: false,
-          partitionByNewLine: false,
-          newlinesBetween: 'ignore',
-          groups: [],
-          customGroups: [],
-        },
-      ],
       'prettier/prettier': [
         'error',
         { endOfLine: 'auto' },
@@ -94,6 +93,7 @@ export default tseslint.config(
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-duplicate-enum-values': 'warn',
       '@typescript-eslint/no-empty-interface': 'warn',
+      '@typescript-eslint/no-unnecessary-condition': 'off',
 
       'import/no-extraneous-dependencies': [
         'error',
@@ -107,6 +107,16 @@ export default tseslint.config(
           namedComponents: ['arrow-function', 'function-declaration'],
           unnamedComponents: 'arrow-function',
         },
+      ],
+      'typescript-sort-keys/interface': [
+        'warn',
+        'asc',
+        { caseSensitive: true, requiredFirst: true },
+      ],
+      'typescript-sort-keys/string-enum': [
+        'warn',
+        'asc',
+        { caseSensitive: true },
       ],
       curly: ['error', 'all'],
       'arrow-body-style': 'warn',
@@ -122,6 +132,13 @@ export default tseslint.config(
       'react/jsx-filename-extension': [
         2,
         { extensions: ['.js', '.jsx', '.ts', '.tsx'] },
+      ],
+      'react/self-closing-comp': [
+        'error',
+        {
+          component: true,
+          html: true,
+        },
       ],
       'no-console': ['warn', { allow: ['warn'] }],
       'no-warning-comments': [
