@@ -1,7 +1,25 @@
-import { defineConfig } from 'vite'
-import react from '@vitejs/plugin-react'
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+import checker from 'vite-plugin-checker';
+import eslint from 'vite-plugin-eslint2';
 
-// https://vitejs.dev/config/
 export default defineConfig({
-  plugins: [react()],
-})
+  plugins: [
+    react(),
+    checker({
+      typescript: true,
+    }),
+    eslint(),
+  ],
+  server: {
+    port: 3000,
+  },
+  css: {
+    preprocessorOptions: {
+      scss: {
+        api: 'modern-compiler',
+      },
+    },
+    devSourcemap: true,
+  },
+});
