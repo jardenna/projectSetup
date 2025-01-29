@@ -1,4 +1,5 @@
 import js from '@eslint/js';
+import pluginQuery from '@tanstack/eslint-plugin-query';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import prettier from 'eslint-plugin-prettier/recommended';
@@ -32,6 +33,7 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
+      '@tanstack/query': pluginQuery,
     },
     settings: {
       // for eslint-plugin-react to auto detect react version
@@ -53,6 +55,7 @@ export default tseslint.config(
       },
     },
     rules: {
+      '@tanstack/query/exhaustive-deps': 'error',
       'prettier/prettier': [
         'error',
         { endOfLine: 'auto' },

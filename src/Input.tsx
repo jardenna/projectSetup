@@ -4,18 +4,13 @@ interface InputProps {
   text?: string;
 }
 
-const Input: FC<InputProps> = ({ text }) => {
-  if (text) {
-    console.log(123);
-  }
-
-  return (
-    <section>
-      <button>jj {text}</button>
-      <input type="text" />
-      <img src="" alt="" />
-    </section>
-  );
-};
+const Input: FC<InputProps> = ({ text }) => (
+  <section>
+    <button>jj {text}</button>
+    <label htmlFor="inputField">ddd</label>
+    <input type="text" />
+    <img src="" alt="" />
+  </section>
+);
 
 export default Input;
