@@ -6,9 +6,9 @@ interface InputProps {
 
 const Input: FC<InputProps> = ({ text }) => (
   <section>
-    <button>jj {text}</button>
+    <button type="button">jj {text}</button>
     <label htmlFor="inputField">ddd</label>
-    <input type="text" />
+    <input type="text" id="inputField" />
     <img src="" alt="" />
   </section>
 );
