@@ -1,20 +1,11 @@
-import './App.css';
+import { FC } from 'react';
 
-function App() {
-  return (
-    <div className="App">
-      <div />
-      <h1>Vite + React</h1>
-      <div className="card">
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </div>
-  );
-}
+const App: FC = () => (
+  <div className="main-container">
+    <header aria-label="primary">Header</header>
+    <main>Main content</main>
+    <footer aria-label="primary">Footer</footer>
+  </div>
+);
 
 export default App;
