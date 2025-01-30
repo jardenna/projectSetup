@@ -61,34 +61,13 @@ export default tseslint.config(
         },
       },
     },
-    // languageOptions: {
-    //   parserOptions: {
-    //     ecmaFeatures: {
-    //       jsx: true,
-    //     },
-    //   },
-    // },
     rules: {
       'perfectionist/sort-imports': 'error',
-      'perfectionist/sort-enums': [
-        'error',
-        {
-          type: 'alphabetical',
-          order: 'asc',
-          ignoreCase: true,
-          specialCharacters: 'keep',
-          partitionByComment: false,
-          partitionByNewLine: false,
-          // newlinesBetween: 'ignore',
-          sortByValue: false,
-          forceNumericSort: false,
-        },
-      ],
       'prettier/prettier': [
         'error',
         { endOfLine: 'auto' },
         { usePrettierrc: true },
-      ], // Use our .prettierrc file as source
+      ],
       '@typescript-eslint/no-unused-vars': 'warn',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-duplicate-enum-values': 'warn',
