@@ -6,7 +6,6 @@ import prettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
-import typescriptSortKeys from 'eslint-plugin-typescript-sort-keys';
 import tseslint, { configs as tsConfigs } from 'typescript-eslint';
 
 export default tseslint.config(
@@ -46,7 +45,6 @@ export default tseslint.config(
     plugins: {
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
-      'typescript-sort-keys': typescriptSortKeys,
       perfectionist,
     },
     settings: {
@@ -86,16 +84,7 @@ export default tseslint.config(
           unnamedComponents: 'arrow-function',
         },
       ],
-      'typescript-sort-keys/interface': [
-        'warn',
-        'asc',
-        { caseSensitive: true, requiredFirst: true },
-      ],
-      'typescript-sort-keys/string-enum': [
-        'warn',
-        'asc',
-        { caseSensitive: true },
-      ],
+
       curly: ['error', 'all'],
       'arrow-body-style': 'warn',
       'react/no-multi-comp': ['error', { ignoreStateless: false }],
