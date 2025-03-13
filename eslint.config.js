@@ -86,12 +86,7 @@ export default tseslint.config(
       '@typescript-eslint/no-unsafe-member-access': 'off',
       '@typescript-eslint/restrict-template-expressions': 'off',
       'react-compiler/react-compiler': 'error',
-      'import/no-extraneous-dependencies': [
-        'error',
-        {
-          peerDependencies: true,
-        },
-      ],
+
       'perfectionist/sort-interfaces': [
         'error',
         {
