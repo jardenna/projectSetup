@@ -1,40 +1,45 @@
-import { default as js, default as pluginJs } from '@eslint/js';
+import { default as js } from '@eslint/js';
 import importPlugin from 'eslint-plugin-import';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 import perfectionist from 'eslint-plugin-perfectionist';
 import prettier from 'eslint-plugin-prettier/recommended';
 import react from 'eslint-plugin-react';
+import reactCompiler from 'eslint-plugin-react-compiler';
 import reactHooks from 'eslint-plugin-react-hooks';
 import reactRefresh from 'eslint-plugin-react-refresh';
 import tseslint, { configs as tsConfigs } from 'typescript-eslint';
 
 export default tseslint.config(
-  { ignores: ['dist', 'node_modules'] },
-  pluginJs.configs.recommended,
   {
     languageOptions: {
       parserOptions: {
         projectService: true,
         ecmaVersion: 'latest',
         sourceType: 'module',
+        globals: {
+          process: 'readonly',
+          console: 'readonly',
+          __dirname: 'readonly', // Fixes "__dirname is not defined" if used
+        },
         tsconfigRootDir: import.meta.dirname,
       },
     },
   },
   {
-    // specify the formats on which to apply the rules below
-    files: ['**/*.{ts,tsx}'],
     // use predefined configs in installed eslint plugins
     extends: [
       // js
       js.configs.recommended,
+      reactCompiler.configs.recommended,
+      reactHooks.configs['recommended-latest'],
+      reactRefresh.configs.recommended,
       // ts
       ...tseslint.configs.recommended,
       // react
       react.configs.flat.recommended,
       // import
       importPlugin.flatConfigs.recommended,
-      // a11y (accessibility
+      // a11y (accessibility)
       jsxA11y.flatConfigs.recommended,
       // prettier
       prettier,
@@ -43,8 +48,6 @@ export default tseslint.config(
 
     // specify used plugins
     plugins: {
-      'react-hooks': reactHooks,
-      'react-refresh': reactRefresh,
       perfectionist,
     },
     settings: {
@@ -59,24 +62,44 @@ export default tseslint.config(
         },
       },
     },
+
+    // specify the formats on which to apply the rules below
+    files: ['**/*.{ts,tsx}'],
+    ignores: ['dist'],
+
     rules: {
-      'perfectionist/sort-imports': 'error',
+      '@typescript-eslint/no-unnecessary-boolean-literal-compare': 'error',
       'prettier/prettier': [
         'error',
         { endOfLine: 'auto' },
         { usePrettierrc: true },
-      ], // Use our .prettierrc file as source
+      ],
       '@typescript-eslint/no-unused-vars': 'warn',
+      '@typescript-eslint/no-invalid-void-type': 'off',
       '@typescript-eslint/no-explicit-any': 'off',
       '@typescript-eslint/no-duplicate-enum-values': 'warn',
       '@typescript-eslint/no-empty-interface': 'warn',
-      '@typescript-eslint/no-unnecessary-condition': 'off',
+      '@typescript-eslint/no-floating-promises': 'off',
+      '@typescript-eslint/no-unsafe-assignment': 'off',
+      '@typescript-eslint/no-misused-promises': 'off',
+      '@typescript-eslint/no-unsafe-argument': 'off',
+      '@typescript-eslint/no-unsafe-member-access': 'off',
+      '@typescript-eslint/restrict-template-expressions': 'off',
+      'react-compiler/react-compiler': 'error',
       'import/no-extraneous-dependencies': [
         'error',
         {
           peerDependencies: true,
         },
       ],
+      'perfectionist/sort-interfaces': [
+        'error',
+        {
+          groups: ['required-property', 'optional-property'],
+        },
+      ],
+      'perfectionist/sort-enums': ['error'],
+
       'react/function-component-definition': [
         2,
         {
@@ -89,12 +112,9 @@ export default tseslint.config(
       'arrow-body-style': 'warn',
       'react/no-multi-comp': ['error', { ignoreStateless: false }],
       'react/no-unescaped-entities': 0,
+      'react/jsx-curly-brace-presence': 'error',
       'no-underscore-dangle': ['error', { allow: ['__esModule', '__extends'] }],
-      'import/no-unresolved': 'off',
-      'import/extensions': 'off',
-      'react/jsx-uses-react': 'off',
       'react/react-in-jsx-scope': 'off',
-      'react/prop-types': 'off',
       'jsx-a11y/alt-text': 'error',
       'react/jsx-filename-extension': [
         2,
@@ -107,20 +127,29 @@ export default tseslint.config(
           html: true,
         },
       ],
-      'no-console': ['warn', { allow: ['warn'] }],
+      'no-console': ['warn', { allow: ['error'] }],
       'no-warning-comments': [
         'error',
         { terms: ['todo', 'fixme', 'any other term'], location: 'anywhere' },
       ],
       camelcase: 'off',
-      'react/destructuring-assignment': 'off',
+      'react/jsx-no-target-blank': [
+        'error',
+        {
+          allowReferrer: false,
+          enforceDynamicLinks: 'always',
+          warnOnSpreadAttributes: true,
+          links: true,
+          forms: true,
+        },
+      ],
       'react/button-has-type': 'error',
       'react/prefer-stateless-function': 'warn',
-      'react/jsx-props-no-spreading': 'off',
+      'react/jsx-no-useless-fragment': 'error',
+      'prefer-template': 'error',
       'react/no-did-update-set-state': 'warn',
       'class-methods-use-this': 'off',
       'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
-      'react/no-array-index-key': 'off',
       'react/no-direct-mutation-state': 1,
       'no-nested-ternary': 'warn',
       'react/require-default-props': [
