@@ -1,5 +1,3 @@
-import { FC } from 'react';
-
-const Nav: FC = () => <nav>aa</nav>;
+const Nav = () => <nav>Nav</nav>;
 
 export default Nav;

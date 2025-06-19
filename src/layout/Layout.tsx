@@ -1,7 +1,6 @@
-import { FC } from 'react';
 import { Outlet } from 'react-router';
 
-const Layout: FC = () => (
+const Layout = () => (
   <div className="main-container">
     <header aria-label="primary">Header</header>
     <main>
